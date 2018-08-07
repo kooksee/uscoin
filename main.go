@@ -13,7 +13,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 
-	"github.com/cosmos/cosmos-sdk/version"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	ibccmd "github.com/cosmos/cosmos-sdk/x/ibc/client/cli"
@@ -88,13 +87,12 @@ func main() {
 		lcd.ServeCommand(cdc),
 		keys.Commands(),
 		client.LineBreak,
-		version.VersionCmd,
 		cmds.RunNodeCmd(),
 		cmds.VersionCmd,
 	)
 
 	// prepare and add flags
-	if err := cli.PrepareMainCmd(rootCmd, "BC", os.ExpandEnv("$HOME/.democli")).Execute(); err != nil {
+	if err := cli.PrepareMainCmd(rootCmd, "U", os.ExpandEnv("$PWD/kdata")).Execute(); err != nil {
 		// handle with #870
 		panic(err)
 	}
