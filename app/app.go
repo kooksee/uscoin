@@ -169,7 +169,7 @@ func (app *DemocoinApp) ExportAppStateAndValidators() (appState json.RawMessage,
 	// iterate to get the accounts
 	accounts := []*tps.GenesisAccount{}
 	appendAccount := func(acc auth.Account) (stop bool) {
-		account := &types.GenesisAccount{
+		account := &tps.GenesisAccount{
 			Address: acc.GetAddress(),
 			Coins:   acc.GetCoins(),
 		}
@@ -178,7 +178,7 @@ func (app *DemocoinApp) ExportAppStateAndValidators() (appState json.RawMessage,
 	}
 	app.accountMapper.IterateAccounts(ctx, appendAccount)
 
-	genState := types.GenesisState{
+	genState := tps.GenesisState{
 		Accounts:    accounts,
 		POWGenesis:  pow.WriteGenesis(ctx, app.powKeeper),
 		CoolGenesis: cool.WriteGenesis(ctx, app.coolKeeper),
